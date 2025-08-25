@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByOlisJo Chat</title>
+</head>
+<body>
+  <h1>🚀 Bienvenido a ByOlisJo</h1>
+  <p>Esta es una prueba de tu primera página web con chat.</p>
+
+  <!-- Caja del chat -->
+  <div style="border:1px solid #ccc; padding:10px; width:300px; font-family:sans-serif">
+    <h3>💬 Chat ByOlisJo</h3>
+    <div id="chatBox" style="height:150px; overflow-y:auto; border:1px solid #eee; padding:5px; margin-bottom:10px;">
+      <p><b>Bot:</b> ¡Hola! Soy tu asistente. ¿En qué puedo ayudarte?</p>
+    </div>
+    <input id="userInput" type="text" placeholder="Escribe tu mensaje aquí..." style="width:70%">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <!-- Script para manejar el chat -->
+  <script>
+    let history = [];
+
+    async function sendMessage() {
+      const input   = document.getElementById("userInput");
+      const chatBox = document.getElementById("chatBox");
+      const text    = input.value.trim();
+      if (!text) return;
+
+      // Mostrar tu mensaje
+      chatBox.innerHTML += `<p><b>Tú:</b> ${text}</p>`;
+      input.value = "";
+
+      // Indicador de "escribiendo..."
+      const loaderId = "ldr-" + Date.now();
+      chatBox.innerHTML += `<p id="${loaderId}"><b>Bot:</b> escribiendo…</p>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const r = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, history })
+        });
+
+        const data  = await r.json();
+        const reply = data.reply || "No pude responder. Intenta de nuevo.";
+
+        // Reemplaza el “escribiendo...” por la respuesta real
+        document.getElementById(loaderId).remove();
+        chatBox.innerHTML += `<p><b>Bot:</b> ${reply}</p>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Guardar contexto
+        history.push({ role: "user", content: text });
+        history.push({ role: "assistant", content: reply });
+
+      } catch (e) {
+        document.getElementById(loaderId).textContent = "⚠️ Error de conexión. Intenta otra vez.";
+      }
+    }
+  </script>
+</body>
+</html>
+
