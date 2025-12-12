@@ -4,33 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ByOlisJo Chat</title>
+  <style>
+  body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0b0b0c;
+    color:#ffffff;
+  }
+
+  .container{
+    max-width:520px;
+    margin:0 auto;
+    padding:28px 16px 60px;
+  }
+
+  .toplink{
+    display:inline-block;
+    background:#000;
+    color:#fff;
+    padding:10px 16px;
+    text-decoration:none;
+    font-weight:600;
+    border-radius:10px;
+    margin-bottom:16px;
+  }
+
+  h1{
+    margin:10px 0 18px;
+    font-size:22px;
+  }
+
+  .chat{
+    border:1px solid #2a2a2e;
+    border-radius:14px;
+    padding:14px;
+    background:#121214;
+  }
+
+  .chat h3{
+    margin:0 0 10px 0;
+  }
+
+  #chatBox{
+    height:240px;
+    overflow-y:auto;
+    border:1px solid #2a2a2e;
+    border-radius:12px;
+    padding:10px;
+    margin-bottom:12px;
+    background:#0f0f10;
+  }
+
+  #userInput{
+    width: calc(100% - 90px);
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #2a2a2e;
+    background:#0f0f10;
+    color:#fff;
+  }
+
+  .send{
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid #2a2a2e;
+    background:#1b1b1e;
+    color:#fff;
+    font-weight:700;
+  }
+</style>
 </head>
 <body>
-  <a href="https://byolisjo.com"
-   style="
-     display:inline-block;
-     background:#000;
-     color:#fff;
-     padding:10px 16px;
-     text-decoration:none;
-     font-weight:600;
-     font-family:Arial, sans-serif;
-     border-radius:8px;
-     margin-bottom:16px;
-   ">
-  ByOlisjo
-</a>
+  <div class="container">
+  <a class="toplink" href="https://byolisjo.com">ByOlisjo</a>
+
   <h1>🚀 Bienvenido a ByOlisJo</h1>
   
 
   <!-- Caja del chat -->
-  <div style="border:1px solid #ccc; padding:10px; width:300px; font-family:sans-serif">
+  <div class="chat">
     <h3>💬 Chat ByOlisJo</h3>
-    <div id="chatBox" style="height:150px; overflow-y:auto; border:1px solid #eee; padding:5px; margin-bottom:10px;">
+    <div id="chatBox">
       <p><b>Bot:</b> ¡Hola! Soy tu asistente. ¿En qué puedo ayudarte?</p>
     </div>
-    <input id="userInput" type="text" placeholder="Escribe tu mensaje aquí..." style="width:70%">
-    <button onclick="sendMessage()">Enviar</button>
+   <input id="userInput" type="text" placeholder="Escribe tu mensaje aquí...">
+<button class="send" onclick="sendMessage()">Enviar</button>
   </div>
 
   <!-- Script para manejar el chat -->
@@ -76,8 +134,10 @@
       }
     }
   </script>
+    </div>
 </body>
 </html>
+
 
 
 
